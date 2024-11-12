@@ -47,6 +47,8 @@ def mouse_pressed(app, event):
 def key_pressed(app, event):
     if event.key =="Space":
         app.running=not app.running
+    elif event.key == "r":
+        app_started(app, app.num_rows, app.num_cols)
 
 
 ###
@@ -68,8 +70,8 @@ def redraw_all(app, canvas):
                 ,(column_i+1)*CELL_SIZE_X,
                 (row_i+1)*CELL_SIZE_Y,
                 fill=fill)
-            canvas.create_text(100,20,text="Space to pause/unpause.", font="Consolas", fill="blue")
-            canvas.create_text(100,50,text="L. click to spawn/delete cell.", font="Consolas", fill="blue")
+    canvas.create_text(150,20,text=f"Space to pause/unpause. (Currently {"running" if app.running else "paused"})", font="Consolas", fill="blue")
+    canvas.create_text(110,50,text="Left click to spawn/delete cell.", font="Consolas", fill="blue")
 
 
 def timer_fired(app):
@@ -115,6 +117,7 @@ def get_cell_neighbour_count(app, indicies):
                 num_neighbours+=1
 
     return num_neighbours
+
 
 
 def next_state_cell_conway_rules(app, indicies):
